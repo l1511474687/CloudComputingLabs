@@ -134,7 +134,7 @@ struct LEI//靠结构体把参数传进线程
     char line[100];
 };
 
-int counter = 0;
+int counter = 0;//全局变量，用于记录线程运行是否完毕 
 
 DWORD WINAPI MyThread(LPVOID lpParamter)
 {
@@ -175,7 +175,12 @@ DWORD WINAPI MyThread(LPVOID lpParamter)
     }
 	dlx.Dance(0);
 	strcpy(result[p->id], dlx.g);//结果存起来，先不着急输出
+	
+	WaitForSingleObject(cout_mutex, INFINITE);
     counter--;
+    ReleaseMutex(cout_mutex);
+    
+    exit;
 	return 0L;
 }
 
@@ -194,11 +199,17 @@ int main()
 		strcpy(parameter[i].line, line.c_str());
 		parameter[i].id = i;
 		LEI *p = &parameter[i];//用指针结构体传参
+		
+		WaitForSingleObject(cout_mutex, INFINITE);
 		counter++;//开辟一个线程就+1，最后结束一个线程-1
+		ReleaseMutex(cout_mutex);
+		
+		
 		HANDLE hThread = CreateThread(NULL, 0, MyThread, p , 0, NULL);
 	}
 
-    while(counter>0){Sleep(500);}
+    while(counter>0){Sleep(500);
+	}
 	//printf("等待%d个剩余\n",counter);}//只有所有的都执行完了，才能集中输出
     //cout<<endl<<endl;
     for(int j=1;j<=i;j++)
