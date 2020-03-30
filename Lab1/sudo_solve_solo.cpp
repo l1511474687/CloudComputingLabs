@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
-//·â×°Êı¶À´úÂë
+//å°è£…æ•°ç‹¬ä»£ç 
 const int N = 9;
 const int maxn = N * N * N + 10;
 const int maxnode = maxn * 4 + maxn + 10;
-//¶àÏß³ÌÖ´ĞĞÍêºó£¬ÎªÁË²»ÈÃËûÇÀÊä³ö£¬ÓÃÒ»¸öÈ«¾Ö½á¹û´æÆğÀ´×îºóÔÙÊä³ö
+//å¤šçº¿ç¨‹æ‰§è¡Œå®Œåï¼Œä¸ºäº†ä¸è®©ä»–æŠ¢è¾“å‡ºï¼Œç”¨ä¸€ä¸ªå…¨å±€ç»“æœå­˜èµ·æ¥æœ€åå†è¾“å‡º
 char result[1010][100];
 
 clock_t startTime,endTime;
@@ -37,7 +37,7 @@ struct DLX
         }
     }
 
-    void Link(int r,int c)//ÌîÊı¾İµ½±íÉÏ
+    void Link(int r,int c)//å¡«æ•°æ®åˆ°è¡¨ä¸Š
     {
         ++ S[Col[++ sz] = c];
         Row[sz] = r;
@@ -116,7 +116,7 @@ struct DLX
     }
 };
 
-void place(int &r,int &c1,int &c2,int &c3,int &c4,int i,int j,int k)//°ÑÊı¾İÖÃ»»³É¶ÔÓ¦Ìõ¼ş
+void place(int &r,int &c1,int &c2,int &c3,int &c4,int i,int j,int k)//æŠŠæ•°æ®ç½®æ¢æˆå¯¹åº”æ¡ä»¶
 {
     r = (i * N + j) * N + k;
     c1 = i * N + j + 1;
@@ -129,12 +129,12 @@ void place(int &r,int &c1,int &c2,int &c3,int &c4,int i,int j,int k)//°ÑÊı¾İÖÃ»»
 int main()
 {
 	
-	startTime = clock();//¼ÆÊ±¿ªÊ¼
-	ifstream in("test1000");//¶ÁÎÄ¼şÊı¾İ
+	startTime = clock();//è®¡æ—¶å¼€å§‹
+	ifstream in("test1000");//è¯»æ–‡ä»¶æ•°æ®
 	string line;
     string a[1010];
     int i=0;
-	while (getline (in, line)) // lineÖĞ²»°üÀ¨Ã¿ĞĞµÄ»»ĞĞ·û
+	while (getline (in, line)) // lineä¸­ä¸åŒ…æ‹¬æ¯è¡Œçš„æ¢è¡Œç¬¦
 	{
 	    i++;
 		a[i]=line;
@@ -160,7 +160,7 @@ int main()
         }
     }
 	dlx.Dance(0);
-	//strcpy(result[i], dlx.g);//½á¹û´æÆğÀ´£¬ÏÈ²»×Å¼±Êä³ö
+	//strcpy(result[i], dlx.g);//ç»“æœå­˜èµ·æ¥ï¼Œå…ˆä¸ç€æ€¥è¾“å‡º
 	cout<<dlx.g<<endl;
 	}
     
@@ -171,8 +171,8 @@ int main()
         //cout<<a[j]<<endl; 
         //cout<<result[j]<<endl;
     //}
-    endTime = clock();//¼ÆÊ±½áÊø
-    cout << "The run time is: " <<(double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
+    endTime = clock();//è®¡æ—¶ç»“æŸ
+    //cout << "The run time is: " <<(double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
 
 	return 0;
 
