@@ -2,13 +2,13 @@
 //#include<pthread.h>
 //#include<mutex>
 using namespace std;
-//·â×°Êı¶À´úÂë
+//å°è£…æ•°ç‹¬ä»£ç 
 const int N = 9;
 const int maxn = N * N * N + 10;
 const int maxnode = maxn * 4 + maxn + 10;
-//¶àÏß³ÌÖ´ĞĞÍêºó£¬ÎªÁË²»ÈÃËûÇÀÊä³ö£¬ÓÃÒ»¸öÈ«¾Ö½á¹û´æÆğÀ´×îºóÔÙÊä³ö
+//å¤šçº¿ç¨‹æ‰§è¡Œå®Œåï¼Œä¸ºäº†ä¸è®©ä»–æŠ¢è¾“å‡ºï¼Œç”¨ä¸€ä¸ªå…¨å±€ç»“æœå­˜èµ·æ¥æœ€åå†è¾“å‡º
 char result[1010][100];
-//HANDLE cout_mutex;//»¥³âËø
+//HANDLE cout_mutex;//äº’æ–¥é”
 #define NUM_THREADS 1000
 mutex mtx;
 clock_t startTime,endTime;
@@ -40,7 +40,7 @@ struct DLX
         }
     }
 
-    void Link(int r,int c)//ÌîÊı¾İµ½±íÉÏ
+    void Link(int r,int c)//å¡«æ•°æ®åˆ°è¡¨ä¸Š
     {
         ++ S[Col[++ sz] = c];
         Row[sz] = r;
@@ -119,7 +119,7 @@ struct DLX
     }
 };
 
-void place(int &r,int &c1,int &c2,int &c3,int &c4,int i,int j,int k)//°ÑÊı¾İÖÃ»»³É¶ÔÓ¦Ìõ¼ş
+void place(int &r,int &c1,int &c2,int &c3,int &c4,int i,int j,int k)//æŠŠæ•°æ®ç½®æ¢æˆå¯¹åº”æ¡ä»¶
 {
     r = (i * N + j) * N + k;
     c1 = i * N + j + 1;
@@ -130,13 +130,13 @@ void place(int &r,int &c1,int &c2,int &c3,int &c4,int i,int j,int k)//°ÑÊı¾İÖÃ»»
 
 
 
-struct LEI//¿¿½á¹¹Ìå°Ñ²ÎÊı´«½øÏß³Ì
+struct LEI//é ç»“æ„ä½“æŠŠå‚æ•°ä¼ è¿›çº¿ç¨‹
 {
     int id;
     char line[100];
 };
 
-int counter = 0;//È«¾Ö±äÁ¿£¬ÓÃÓÚ¼ÇÂ¼Ïß³ÌÔËĞĞÊÇ·ñÍê±Ï 
+int counter = 0;//å…¨å±€å˜é‡ï¼Œç”¨äºè®°å½•çº¿ç¨‹è¿è¡Œæ˜¯å¦å®Œæ¯• 
 
 void *MyThread(void *lpParamter)
 {
@@ -167,7 +167,7 @@ void *MyThread(void *lpParamter)
         }
     }
 	dlx.Dance(0);
-	strcpy(result[p->id], dlx.g);//½á¹û´æÆğÀ´£¬ÏÈ²»×Å¼±Êä³ö
+	strcpy(result[p->id], dlx.g);//ç»“æœå­˜èµ·æ¥ï¼Œå…ˆä¸ç€æ€¥è¾“å‡º
 	
 	
     mtx.lock();
@@ -180,24 +180,24 @@ void *MyThread(void *lpParamter)
 
 int main()
 {
-	startTime = clock();//¼ÆÊ±¿ªÊ¼
-	ifstream in("test1000");//¶ÁÎÄ¼şÊı¾İ
+	startTime = clock();//è®¡æ—¶å¼€å§‹
+	ifstream in("test1000");//è¯»æ–‡ä»¶æ•°æ®
 	string line;
     string a[1010];
     int i=0;
     pthread_t tids[NUM_THREADS];
     //cout_mutex = CreateMutex(NULL, FALSE, NULL);
-    LEI parameter[1010];//ÕâÀïÒª¿ª×ã¿Õ¼ä,Ïß³ÌÔÚÖØ¸´µ÷ÓÃµÄ»°»áË¢µôÊı¾İ
-	while (getline (in, line)) // lineÖĞ²»°üÀ¨Ã¿ĞĞµÄ»»ĞĞ·û
+    LEI parameter[1010];//è¿™é‡Œè¦å¼€è¶³ç©ºé—´,çº¿ç¨‹åœ¨é‡å¤è°ƒç”¨çš„è¯ä¼šåˆ·æ‰æ•°æ®
+	while (getline (in, line)) // lineä¸­ä¸åŒ…æ‹¬æ¯è¡Œçš„æ¢è¡Œç¬¦
 	{
 	    i++;
 		a[i]=line;
 		strcpy(parameter[i].line, line.c_str());
 		parameter[i].id = i;
-		LEI *p = &parameter[i];//ÓÃÖ¸Õë½á¹¹Ìå´«²Î
+		LEI *p = &parameter[i];//ç”¨æŒ‡é’ˆç»“æ„ä½“ä¼ å‚
 		//WaitForSingleObject(cout_mutex, INFINITE);
 		mtx.lock();
-		counter++;//¿ª±ÙÒ»¸öÏß³Ì¾Í+1£¬×îºó½áÊøÒ»¸öÏß³Ì-1
+		counter++;//å¼€è¾Ÿä¸€ä¸ªçº¿ç¨‹å°±+1ï¼Œæœ€åç»“æŸä¸€ä¸ªçº¿ç¨‹-1
 		mtx.unlock();
 		//ReleaseMutex(cout_mutex);
 		int ret = pthread_create(&tids[i], NULL, MyThread, (void*)p);
@@ -207,7 +207,7 @@ int main()
 	   //for(int i=0; i <=1; i++);
 	}
 	
-	//printf("µÈ´ı%d¸öÊ£Óà\n",counter);}//Ö»ÓĞËùÓĞµÄ¶¼Ö´ĞĞÍêÁË£¬²ÅÄÜ¼¯ÖĞÊä³ö
+	//printf("ç­‰å¾…%dä¸ªå‰©ä½™\n",counter);}//åªæœ‰æ‰€æœ‰çš„éƒ½æ‰§è¡Œå®Œäº†ï¼Œæ‰èƒ½é›†ä¸­è¾“å‡º
     //cout<<endl<<endl;
     //pthread_exit(NULL);
     for(int j=1;j<=1000;j++)
@@ -216,8 +216,8 @@ int main()
         //cout<<a[j]<<endl; 
         cout<<result[j]<<endl;
     }
-    endTime = clock();//¼ÆÊ±½áÊø
-    cout << "The run time is: " <<(double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
+    endTime = clock();//è®¡æ—¶ç»“æŸ
+    //cout << "The run time is: " <<(double)(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
     exit(0);
 	return 0;
 
