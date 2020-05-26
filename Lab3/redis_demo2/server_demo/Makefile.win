@@ -1,0 +1,43 @@
+# Project: Server2
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = adlist.o dict.o hashTableTest.o redisDb.o sds.o serverAndClientTest.o
+LINKOBJ  = adlist.o dict.o hashTableTest.o redisDb.o sds.o serverAndClientTest.o
+LIBS     = -L"D:/C++/Dev-Cpp/MinGW64/lib" -L"D:/C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -lws2_32
+INCS     = -I"D:/C++/Dev-Cpp/MinGW64/include" -I"D:/C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"D:/C++/Dev-Cpp/MinGW64/include" -I"D:/C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = Server2.exe
+CXXFLAGS = $(CXXINCS) -std=c++11
+CFLAGS   = $(INCS) -std=c++11
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+adlist.o: adlist.cpp
+	$(CPP) -c adlist.cpp -o adlist.o $(CXXFLAGS)
+
+dict.o: dict.cpp
+	$(CPP) -c dict.cpp -o dict.o $(CXXFLAGS)
+
+hashTableTest.o: hashTableTest.cpp
+	$(CPP) -c hashTableTest.cpp -o hashTableTest.o $(CXXFLAGS)
+
+redisDb.o: redisDb.cpp
+	$(CPP) -c redisDb.cpp -o redisDb.o $(CXXFLAGS)
+
+sds.o: sds.cpp
+	$(CPP) -c sds.cpp -o sds.o $(CXXFLAGS)
+
+serverAndClientTest.o: serverAndClientTest.cpp
+	$(CPP) -c serverAndClientTest.cpp -o serverAndClientTest.o $(CXXFLAGS)
